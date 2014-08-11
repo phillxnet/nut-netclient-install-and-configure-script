@@ -39,6 +39,9 @@ if ! dpkg -s nut >/dev/null; then
   echo "starting nut-client"
   sudo /etc/init.d/nut-client restart
 
+  # fsd is normally called when a ups is OB (On Battery) and LB (Low Battery)
+  # fsd = Full Shut Down
+
   echo "the following commnd should list current infomation about your ups"
   echo "upsc $UPS_NAME@NUT_SERVER"
 
