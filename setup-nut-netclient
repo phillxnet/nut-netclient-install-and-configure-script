@@ -45,6 +45,12 @@ if ! dpkg -s nut >/dev/null; then
   echo "the following commnd should list current infomation about your ups"
   echo "upsc $UPS_NAME@$NUT_SERVER"
 
+  echo "To test this setup it is best to reboot first then execute the following command"
+  echo "sudo upsmon -c fsd"
+  echo "If all is functioning correctly with will simulate the ups being in both the following states"
+  echo "On Battery (OB) & Low Battery"
+  echo "In that situation the system should perform an automatic power-fail shutdown"
+
 else
   echo "nut package already installed, please consider removing nut first"
   echo "as this script expects to install and configure nut itself"
