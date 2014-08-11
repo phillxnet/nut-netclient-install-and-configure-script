@@ -1,18 +1,27 @@
 #!/bin/bash
 
 # simple script to setup a NUT netclient config
+# assumptions are Ubuntu 14.04.1, and that the nut server has only one UPS attached
+# and is accessible by an already configured nut user+pass.
 
-read -e -p "Do you wish to install and configure NUT from scratch (y/n): " -i "Y" SETUP_NUT
+read -e -p "Do you wish to install and configure NUT from scratch (y/n): " -i "y" SETUP_NUT
+
+if [ "$SETUP_NUT" = "n" ]; then
+  echo "OK exiting script"
+  exit -1
+fi
+
 
 if ! dpkg -s nut >/dev/null; then
   echo "installing nut package"
   sudo apt-get install -q nut
-  
+
   # Get the ups and server name as well as the nut user credentials needed
   read -e -p "Input the UPS name (found in nut servers /etc
 
   echo "Pleae input the following info"
   read -e -p "Nut SERVER NAME or IP ADDRESS (needed to construct the local MONITOR line " -i "pfsensec" NUT_SERVER
+  read -e -p "The nut UPS NAME you wish to monitor on the above server " -i "ups" UPS_NAME
   read -e -p "Nut servers MONITOR USER (defined in /etc/nut/upsd.users) " -i "monmaster" NUT_USER
   read -e -p "and the monitor users PASSWORD " -i "mmpass" USER_PASS
 
@@ -21,6 +30,9 @@ if ! dpkg -s nut >/dev/null; then
   if [ -z "$NUT_USER" ]; then echo "No username given. Exiting."; exit -1; fi
   if [ -z "$USER_PASS" ]; then echo "No password given. Exiting."; exit -1; fi
 
+  # now to construct the MONITOR line from the above info and put it in upsmon.conf
+  echo "@$HOST.$LANDOMAIN $SMTP_USER" | sudo tee -a /etc/postfix/generic >/dev/null
+  echo "MONITOR $UPS_NAME@$NUT_SERVER 1 $NUT_USER $USER_PASS slave" | sudo tee -a /etc/nut/upsmon.conf >/dev/null
 
 
 
