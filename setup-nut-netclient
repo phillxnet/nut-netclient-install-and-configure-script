@@ -5,8 +5,9 @@
 # and is accessible by an already configured nut user+pass.
 
 read -e -p "Do you wish to install and configure NUT from scratch (y/n): " -i "y" SETUP_NUT
+echo
 
-if [ "$SETUP_NUT" = "n" ]; then
+if [ ! "$SETUP_NUT" = "y" ]; then
   echo "OK exiting script"
   exit -1
 fi
@@ -32,14 +33,16 @@ if ! dpkg -s nut >/dev/null; then
   # now to construct the MONITOR line from the above info and put it on the end of /etc/nut/upsmon.conf
   echo "MONITOR $UPS_NAME@$NUT_SERVER 1 $NUT_USER $USER_PASS slave" | sudo tee -a /etc/nut/upsmon.conf >/dev/null
 
-  # now to replace the MODE=none with MODE=netclient in nut.con
+  # now to replace the MODE=none with MODE=netclient in nut.conf
   sudo sed -i 's/MODE=none/MODE=netclient/g' /etc/nut/nut.conf
 
   
 
 else
   echo "nut package already installed, please consider removing nut first"
-  echo "as this script expects to install nut itself and configure it from there"
+  echo "as this script expects to install and configure nut itself"
+  echo "sudo apt-get purge nut"
+  echo "N.B. WARNING this will remove all previous configurations"
 fi
 
 
