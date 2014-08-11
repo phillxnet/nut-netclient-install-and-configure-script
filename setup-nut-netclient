@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# simple script to setup a NUT netclient config
+
+read -e -p "Do you wish to install and configure NUT from scratch (y/n): " -i "Y" SETUP_NUT
+
+if ! dpkg -s nut >/dev/null; then
+  echo "installing nut package"
+  sudo apt-get install -q nut
+  
+  # Get the ups and server name as well as the nut user credentials to get info from the nut server
+
+
+# now replace the MODE=none with MODE=netclient in nut.con
+  sudo sed -i 's/MODE=none/MODE=netclient/g' /etc/nut/nut.conf
+
+
+
+else
+  echo "nut package already installed, please consider removing nut first"
+  echo "as this script expects to install nut itself and configure it from there"
+fi
+
+
