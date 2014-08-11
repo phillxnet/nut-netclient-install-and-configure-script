@@ -17,8 +17,6 @@ if ! dpkg -s nut >/dev/null; then
   sudo apt-get install -q nut
 
   # Get the ups and server name as well as the nut user credentials needed
-  read -e -p "Input the UPS name (found in nut servers /etc
-
   echo "Pleae input the following info"
   read -e -p "Nut SERVER NAME or IP ADDRESS (needed to construct the local MONITOR line " -i "pfsensec" NUT_SERVER
   read -e -p "The nut UPS NAME you wish to monitor on the above server " -i "ups" UPS_NAME
@@ -27,14 +25,12 @@ if ! dpkg -s nut >/dev/null; then
 
   # most basic of sanity checks (are any of the above empty if so exit script  
   if [ -z "$NUT_SERVER" ]; then echo "No server name given. Exiting."; exit -1; fi
+  if [ -z "$UPS_NAME" ]; then echo "No ups name given. Exiting."; exit -1; fi 
   if [ -z "$NUT_USER" ]; then echo "No username given. Exiting."; exit -1; fi
   if [ -z "$USER_PASS" ]; then echo "No password given. Exiting."; exit -1; fi
 
-  # now to construct the MONITOR line from the above info and put it in upsmon.conf
-  echo "@$HOST.$LANDOMAIN $SMTP_USER" | sudo tee -a /etc/postfix/generic >/dev/null
+  # now to construct the MONITOR line from the above info and put it on the end of /etc/nut/upsmon.conf
   echo "MONITOR $UPS_NAME@$NUT_SERVER 1 $NUT_USER $USER_PASS slave" | sudo tee -a /etc/nut/upsmon.conf >/dev/null
-
-
 
   # now to replace the MODE=none with MODE=netclient in nut.con
   sudo sed -i 's/MODE=none/MODE=netclient/g' /etc/nut/nut.conf
