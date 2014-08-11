@@ -43,7 +43,7 @@ if ! dpkg -s nut >/dev/null; then
   # fsd = Full Shut Down
 
   echo "the following commnd should list current infomation about your ups"
-  echo "upsc $UPS_NAME@NUT_SERVER"
+  echo "upsc $UPS_NAME@$NUT_SERVER"
 
 else
   echo "nut package already installed, please consider removing nut first"
