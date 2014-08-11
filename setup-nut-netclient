@@ -8,13 +8,26 @@ if ! dpkg -s nut >/dev/null; then
   echo "installing nut package"
   sudo apt-get install -q nut
   
-  # Get the ups and server name as well as the nut user credentials to get info from the nut server
+  # Get the ups and server name as well as the nut user credentials needed
+  read -e -p "Input the UPS name (found in nut servers /etc
+
+  echo "Pleae input the following info"
+  read -e -p "Nut SERVER NAME or IP ADDRESS (needed to construct the local MONITOR line " -i "pfsensec" NUT_SERVER
+  read -e -p "Nut servers MONITOR USER (defined in /etc/nut/upsd.users) " -i "monmaster" NUT_USER
+  read -e -p "and the monitor users PASSWORD " -i "mmpass" USER_PASS
+
+  # most basic of sanity checks (are any of the above empty if so exit script  
+  if [ -z "$NUT_SERVER" ]; then echo "No server name given. Exiting."; exit -1; fi
+  if [ -z "$NUT_USER" ]; then echo "No username given. Exiting."; exit -1; fi
+  if [ -z "$USER_PASS" ]; then echo "No password given. Exiting."; exit -1; fi
 
 
-# now replace the MODE=none with MODE=netclient in nut.con
+
+
+  # now to replace the MODE=none with MODE=netclient in nut.con
   sudo sed -i 's/MODE=none/MODE=netclient/g' /etc/nut/nut.conf
 
-
+  
 
 else
   echo "nut package already installed, please consider removing nut first"
