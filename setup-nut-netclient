@@ -36,7 +36,8 @@ if ! dpkg -s nut >/dev/null; then
   # now to replace the MODE=none with MODE=netclient in nut.conf
   sudo sed -i 's/MODE=none/MODE=netclient/g' /etc/nut/nut.conf
 
-  
+  echo "the following commnd should list current infomation about your ups"
+  echo "upsc $UPS_NAME@NUT_SERVER"
 
 else
   echo "nut package already installed, please consider removing nut first"
