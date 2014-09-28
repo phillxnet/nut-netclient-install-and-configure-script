@@ -47,8 +47,8 @@ if ! dpkg -s nut >/dev/null; then
 
   echo "To test this setup it is best to reboot first then execute the following command"
   echo "sudo upsmon -c fsd"
-  echo "If all is functioning correctly with will simulate the ups being in both the following states"
-  echo "On Battery (OB) & Low Battery"
+  echo "If all is functioning correctly this will simulate the ups being in both the following states"
+  echo "On Battery (OB) & Low Battery (LB)"
   echo "In that situation the system should perform an automatic power-fail shutdown"
 
 else
