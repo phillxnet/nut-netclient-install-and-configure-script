@@ -1,0 +1,7 @@
+Simple bash script to setup a NUT netclient config from scratch.
+Assumptions are Ubuntu 14.04.1, and that the nut server has only one UPS attached and is accessible by an already configured nut user+pass.
+Prompts for:-
+Nut SERVER NAME (on the local network)
+Nut UPS NAME (as configured on the nut server)
+Nut servers MONITOR USER (as configured on the nut server)
+Nut server monitor users PASSWORD (as configured on the nut server)
