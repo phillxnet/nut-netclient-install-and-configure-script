@@ -19,10 +19,10 @@ if ! dpkg -s nut >/dev/null; then
 
   # Get the ups and server name as well as the nut user credentials needed
   echo "Pleae input the following info"
-  read -e -p "Nut SERVER NAME or IP ADDRESS (needed to construct the local MONITOR line " -i "nutserver" NUT_SERVER
-  read -e -p "The nut UPS NAME you wish to monitor on the above server " -i "ups" UPS_NAME
-  read -e -p "Nut servers MONITOR USER (defined in /etc/nut/upsd.users) " -i "monmaster" NUT_USER
-  read -e -p "and the monitor users PASSWORD " -i "mmpass" USER_PASS
+  read -e -p "Nut SERVER NAME or IP ADDRESS (needed to construct the local MONITOR line): " -i "nutserver" NUT_SERVER
+  read -e -p "The nut UPS NAME you wish to monitor on the above server: " -i "ups" UPS_NAME
+  read -e -p "Nut servers MONITOR USER (defined in /etc/nut/upsd.users): " -i "monmaster" NUT_USER
+  read -e -p "and the monitor users PASSWORD: " -i "mmpass" USER_PASS
 
   # most basic of sanity checks (are any of the above empty if so exit script  
   if [ -z "$NUT_SERVER" ]; then echo "No server name given. Exiting."; exit -1; fi
