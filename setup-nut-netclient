@@ -42,12 +42,12 @@ if ! dpkg -s nut >/dev/null; then
   # fsd is normally called when a ups is OB (On Battery) and LB (Low Battery)
   # fsd = Full Shut Down
 
-  echo "the following commnd should list current infomation about your ups"
+  echo "the following command should list current information about your ups"
   echo "upsc $UPS_NAME@$NUT_SERVER"
 
   echo "To test this setup it is best to reboot first then execute the following command"
   echo "sudo upsmon -c fsd"
-  echo "If all is functioning correctly this will simulate the ups being in both the following states"
+  echo "If all is functioning correctly this will simulate the ups being in both the following states:"
   echo "On Battery (OB) & Low Battery (LB)"
   echo "In that situation the system should perform an automatic power-fail shutdown"
 
